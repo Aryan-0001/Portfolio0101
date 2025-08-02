@@ -127,6 +127,15 @@
       transform: translateY(0);
     }
 
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .zoom-in {
+      animation: zoomIn 0.6s ease-out forwards;
+    }
+
     .gear-chain {
       position: fixed;
       top: 0;
@@ -145,13 +154,11 @@
       transform: rotate(0deg);
     }
 
-    /* 💻 Desktop layout */
     .gear1 { top: 10%; left: 5%; }
     .gear2 { top: 35%; left: 75%; }
     .gear3 { top: 60%; left: 15%; }
     .gear4 { top: 85%; left: 85%; }
 
-    /* 📱 Mobile layout */
     @media screen and (max-width: 768px) {
       h1 { font-size: 2rem; }
       h2 { font-size: 1.3rem; }
@@ -180,7 +187,6 @@
 </head>
 <body>
 
-  <!-- ⚙️ Background rotating gears -->
   <div class="gear-chain">
     <div class="gear gear1" data-index="0">⚙️</div>
     <div class="gear gear2" data-index="1">⚙️</div>
@@ -220,8 +226,7 @@
     <h2>LeetCode Activity</h2>
     <div class="container fade-up">
       <img src="https://leetcard.jacoblin.cool/aryann_0101?theme=dark&ext=heatmap" style="width:100%; border-radius:10px;" />
-<a
-href="https://leetcode.com/u/aryann_0101" target="_blank" title="Leetcode " > Leetcode</a>
+      <a href="https://leetcode.com/u/aryann_0101" target="_blank" title="Leetcode">Leetcode</a>
     </div>
   </section>
 
@@ -239,13 +244,24 @@ href="https://leetcode.com/u/aryann_0101" target="_blank" title="Leetcode " > Le
   <section id="projects">
     <h2>Projects</h2>
     <div class="container fade-up"><h3>AI in Healthcare (Research)</h3><p>Researched AI in healthcare diagnostics and co-authored a 2023 academic paper on healthcare applications.</p></div>
-    <div class="container fade-up"><h3>Asteroid Classification using AI/ML(Research - 2024) </h3><p>Researched on classifying asteroid patterns using machine learning techniques.</p></div>
+    <div class="container fade-up"><h3>Asteroid Classification using AI/ML (Research - 2024)</h3><p>Researched on classifying asteroid patterns using machine learning techniques.</p></div>
+  </section>
+
+  <section id="interests">
+    <h2>Beyond Tech</h2>
+    <div class="container zoom-in">
+      <h3>Astrophotography & Space</h3>
+      <p>I’m deeply fascinated by the cosmos. I pursue astrophotography in my free time, capturing celestial events and deep-sky objects with passion and precision.</p>
+    </div>
+    <div class="container zoom-in">
+      <h3>Chess & Strategy</h3>
+      <p>I hold the ACM (Arena Candidate Master) title in FIDE's online arena. Chess sharpens my analytical thinking and strategic planning, which I carry into my technical work as well.</p>
+    </div>
   </section>
 
   <footer>&copy; 2025 Aryan Nair. All rights reserved.</footer>
 
   <script>
-    // Scroll-based fade-ins
     const faders = document.querySelectorAll('.fade-up');
     const appearOnScroll = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
@@ -256,7 +272,6 @@ href="https://leetcode.com/u/aryann_0101" target="_blank" title="Leetcode " > Le
     }, { threshold: 0.3 });
     faders.forEach(el => appearOnScroll.observe(el));
 
-    // Rotate gears
     const gears = document.querySelectorAll('.gear');
     let lastScrollY = window.scrollY;
     let baseRotation = 0;
@@ -270,7 +285,6 @@ href="https://leetcode.com/u/aryann_0101" target="_blank" title="Leetcode " > Le
       lastScrollY = window.scrollY;
     });
 
-    // Typewriter effect loop
     const lines = [
       "Final year CS student.",
       "Passionate about AI & ML.",
