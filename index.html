@@ -150,28 +150,40 @@
       animation: zoomIn 0.6s ease-out forwards;
     }
 
-    .gear-chain {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
+    /* 💧 Skills as Glass Buttons */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
     }
 
-    .gear {
-      position: absolute;
-      font-size: 40px;
-      opacity: 0.07;
-      user-select: none;
-      transform: rotate(0deg);
+    .skill {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: inset 2px 2px 6px rgba(255,255,255,0.3),
+                  inset -2px -2px 6px rgba(0,0,0,0.2),
+                  0 4px 12px rgba(0,0,0,0.25);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #eaf9ff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: transform 0.2s ease, background 0.3s ease;
     }
 
-    .gear1 { top: 10%; left: 5%; }
-    .gear2 { top: 35%; left: 75%; }
-    .gear3 { top: 60%; left: 15%; }
-    .gear4 { top: 85%; left: 85%; }
+    .skill:hover {
+      transform: scale(1.12);
+      background: rgba(0, 209, 255, 0.25);
+      box-shadow: inset 2px 2px 6px rgba(255,255,255,0.4),
+                  inset -2px -2px 6px rgba(0,0,0,0.3),
+                  0 6px 16px rgba(0,209,255,0.4);
+      cursor: pointer;
+    }
 
     @media screen and (max-width: 768px) {
       h1 { font-size: 2rem; }
@@ -192,10 +204,6 @@
         flex-direction: column;
         gap: 1rem;
       }
-      .gear1 { top: 8%; left: 8%; }
-      .gear2 { top: 30%; left: 70%; }
-      .gear3 { top: 58%; left: 10%; }
-      .gear4 { top: 85%; left: 80%; }
     }
   </style>
 </head>
@@ -203,13 +211,6 @@
 
   <!-- ⭐ Background Starfield -->
   <canvas id="starfield"></canvas>
-
-  <div class="gear-chain">
-    <div class="gear gear1" data-index="0">⚙️</div>
-    <div class="gear gear2" data-index="1">⚙️</div>
-    <div class="gear gear3" data-index="2">⚙️</div>
-    <div class="gear gear4" data-index="3">⚙️</div>
-  </div>
 
   <header>
     <h1>Aryan Nair</h1>
@@ -233,10 +234,53 @@
 
   <section id="skills">
     <h2>Skills</h2>
-    <div class="container fade-up"><h3>Languages</h3><p>Python, Java, C++, C, Bash</p></div>
-    <div class="container fade-up"><h3>Tools & Frameworks</h3><p>TensorFlow, Pandas, NumPy, Git, GitHub, VS Code, Android Studio, Jupyter</p></div>
-    <div class="container fade-up"><h3>AI/ML</h3><p>LLM Integration (ChatGPT, Gemini), Prompt Engineering, Basic NLP</p></div>
-    <div class="container fade-up"><h3>Systems & Environments</h3><p>Ubuntu, Pop!_OS, Shell Scripting, Google Colab, IntelliJ, PostgreSQL</p></div>
+    <div class="container fade-up">
+      <h3>Languages</h3>
+      <div class="skills">
+        <span class="skill">Python</span>
+        <span class="skill">Java</span>
+        <span class="skill">C++</span>
+        <span class="skill">C</span>
+        <span class="skill">Bash</span>
+      </div>
+    </div>
+
+    <div class="container fade-up">
+      <h3>Tools & Frameworks</h3>
+      <div class="skills">
+        <span class="skill">TensorFlow</span>
+        <span class="skill">Pandas</span>
+        <span class="skill">NumPy</span>
+        <span class="skill">Git</span>
+        <span class="skill">GitHub</span>
+        <span class="skill">VS Code</span>
+        <span class="skill">Android Studio</span>
+        <span class="skill">Jupyter</span>
+      </div>
+    </div>
+
+    <div class="container fade-up">
+      <h3>AI/ML</h3>
+      <div class="skills">
+        <span class="skill">LLM Integration</span>
+        <span class="skill">ChatGPT</span>
+        <span class="skill">Gemini</span>
+        <span class="skill">Prompt Engineering</span>
+        <span class="skill">Basic NLP</span>
+      </div>
+    </div>
+
+    <div class="container fade-up">
+      <h3>Systems & Environments</h3>
+      <div class="skills">
+        <span class="skill">Ubuntu</span>
+        <span class="skill">Pop!_OS</span>
+        <span class="skill">Shell Scripting</span>
+        <span class="skill">Google Colab</span>
+        <span class="skill">IntelliJ</span>
+        <span class="skill">PostgreSQL</span>
+      </div>
+    </div>
   </section>
 
   <section id="leetcode">
@@ -361,20 +405,6 @@ Check out some of my astrophotography:
       });
     }, { threshold: 0.3 });
     faders.forEach(el => appearOnScroll.observe(el));
-
-    // Gear rotation
-    const gears = document.querySelectorAll('.gear');
-    let lastScrollY = window.scrollY;
-    let baseRotation = 0;
-    window.addEventListener('scroll', () => {
-      const delta = window.scrollY - lastScrollY;
-      baseRotation += delta * 0.5;
-      gears.forEach((gear, i) => {
-        const dir = i % 2 === 0 ? 1 : -1;
-        gear.style.transform = `rotate(${baseRotation * dir}deg)`;
-      });
-      lastScrollY = window.scrollY;
-    });
 
     // Typewriter
     const lines = [
