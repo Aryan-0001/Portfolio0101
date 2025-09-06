@@ -12,15 +12,28 @@
 
     body {
       margin: 0;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
       color: white;
       scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* ⭐ Starfield Canvas */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(1200px 800px at 20% 10%, #0f3f9c, #203a43, #0f2027);
     }
 
     header {
       text-align: center;
       padding: 4rem 1rem 2rem;
       animation: fadeIn 1.5s ease-out;
+      position: relative;
+      z-index: 1;
     }
 
     h1 {
@@ -86,6 +99,8 @@
     section {
       padding: 4rem 2rem;
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
     .container {
@@ -96,11 +111,8 @@
       max-width: 600px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.3);
       transition: transform 0.4s ease, background-color 0.3s ease;
-    }
-
-    .container:hover {
-      transform: translateY(-5px) scale(1.02);
-      background-color: rgba(255, 255, 255, 0.08);
+      perspective: 1000px;
+      transform-style: preserve-3d;
     }
 
     footer {
@@ -109,6 +121,8 @@
       font-size: 0.9rem;
       background-color: #111;
       color: #aaa;
+      position: relative;
+      z-index: 1;
     }
 
     @keyframes fadeIn {
@@ -187,6 +201,9 @@
 </head>
 <body>
 
+  <!-- ⭐ Background Starfield -->
+  <canvas id="starfield"></canvas>
+
   <div class="gear-chain">
     <div class="gear gear1" data-index="0">⚙️</div>
     <div class="gear gear2" data-index="1">⚙️</div>
@@ -243,9 +260,18 @@
 
   <section id="projects">
     <h2>Projects</h2>
-    <div class="container fade-up"><h3>AI in Healthcare (Research)</h3><p>Researched AI in healthcare diagnostics and co-authored a 2023 academic paper on healthcare applications.
-</p></div>
-    <div class="container fade-up"><h3>Asteroid Classification using AI/ML (Research - 2024)</h3><p>Researched on classifying asteroid patterns using machine learning techniques.</p></div>
+    <div class="container fade-up">
+      <h3>J.A.R.V.I.S. AI Assistant</h3>
+      <p>A custom-built virtual assistant powered by AI (ChatGPT/Gemini) with voice interaction, Python automation, and a wake-word system. Features include local memory, TTS, and integration with desktop tasks.</p>
+    </div>
+    <div class="container fade-up">
+      <h3>Celestify</h3>
+      <p>A space-themed AR/AI astronomy app with GPS pointing, star overlays, and astrophotography utilities like stacking and star-trail generation. Built in Flutter/Dart and ported to web.</p>
+    </div>
+    <div class="container fade-up">
+      <h3>Helium AI Internship Projects</h3>
+      <p>Worked on e-commerce analytics using AI/ML: persona-based insights, large-scale CSV generation, LinkedIn scraping, and Gemini-powered compatibility scoring. Delivered multiple automation tools as part of my internship at Helium AI.</p>
+    </div>
   </section>
 
   <section id="interests">
@@ -268,6 +294,64 @@ Check out some of my astrophotography:
   <footer>&copy; 2025 Aryan Nair. All rights reserved.</footer>
 
   <script>
+    // ⭐ Starfield Background
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+
+    function resize() {
+      canvas.width = window.innerWidth * DPR;
+      canvas.height = window.innerHeight * DPR;
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      initStars();
+    }
+
+    function initStars() {
+      stars = [];
+      const W = canvas.width / DPR, H = canvas.height / DPR;
+      const count = Math.round(W * H / 2500);
+      for (let i=0;i<count;i++) {
+        stars.push({ 
+          x: Math.random()*W, 
+          y: Math.random()*H, 
+          r: Math.random()*1.6+0.3,
+          spd: Math.random()*18+8,
+          tw: Math.random()*Math.PI*2
+        });
+      }
+    }
+
+    function drawStars(dt) {
+      const W = canvas.width / DPR, H = canvas.height / DPR;
+      ctx.clearRect(0,0,W,H);
+      for (const s of stars) {
+        s.x -= s.spd*dt;
+        if (s.x<-2) { s.x=W+2; s.y=Math.random()*H; }
+        const tw=0.5+0.5*Math.sin(s.tw+=dt*3);
+        ctx.globalAlpha=0.6+0.4*tw;
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r*(0.7+tw*0.6),0,Math.PI*2);
+        ctx.fillStyle='white';
+        ctx.fill();
+      }
+      ctx.globalAlpha=1;
+    }
+
+    let prev=performance.now();
+    function loop(now){
+      const dt=Math.min(0.033,(now-prev)/1000); prev=now;
+      drawStars(dt);
+      requestAnimationFrame(loop);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(loop);
+
+    // Fade-up effect
     const faders = document.querySelectorAll('.fade-up');
     const appearOnScroll = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
@@ -278,6 +362,7 @@ Check out some of my astrophotography:
     }, { threshold: 0.3 });
     faders.forEach(el => appearOnScroll.observe(el));
 
+    // Gear rotation
     const gears = document.querySelectorAll('.gear');
     let lastScrollY = window.scrollY;
     let baseRotation = 0;
@@ -291,6 +376,7 @@ Check out some of my astrophotography:
       lastScrollY = window.scrollY;
     });
 
+    // Typewriter
     const lines = [
       "Final year CS student.",
       "Passionate about AI & ML.",
@@ -309,6 +395,26 @@ Check out some of my astrophotography:
       setTimeout(loopType, speed);
     }
     window.addEventListener("load", loopType);
+
+    // 🎴 Card Tilt Effect
+    document.querySelectorAll(".container").forEach(card => {
+      card.addEventListener("mousemove", e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * 8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+
+        card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+      });
+    });
   </script>
 
 </body>
