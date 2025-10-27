@@ -17,7 +17,6 @@
       overflow-x: hidden;
     }
 
-    
     #starfield {
       position: fixed;
       inset: 0;
@@ -150,7 +149,6 @@
       animation: zoomIn 0.6s ease-out forwards;
     }
 
-    /* 💧 Skills as Glass Buttons */
     .skills {
       display: flex;
       flex-wrap: wrap;
@@ -208,8 +206,6 @@
   </style>
 </head>
 <body>
-
-  
   <canvas id="starfield"></canvas>
 
   <header>
@@ -283,41 +279,33 @@
     </div>
   </section>
 
-  <section id="leetcode">
-    <h2>LeetCode Activity</h2>
-    <div class="container fade-up">
-      <img src="https://camo.githubusercontent.com/704e74fc1f80e1e3aaa6c47b9cf1c0c297c25fdb91e7f28999219ce582befac5/68747470733a2f2f6c656574636172642e6a61636f626c696e2e636f6f6c2f617279616e6e5f303130313f7468656d653d6461726b26666f6e743d746f6b796f6e69676874266578743d686561746d6170" />
-      <a href="https://leetcode.com/u/aryann_0101" target="_blank" title="Leetcode">Leetcode</a>
-    </div>
-  </section>
-
-  <section id="github">
-    <h2>GitHub Stats</h2>
-    <div class="container fade-up">
-      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Aryan-0001&layout=compact&theme=github_dark" style="width:100%; border-radius:10px;" />
-      <br><br>
-      <img src="https://github-readme-stats.vercel.app/api?username=Aryan-0001&show_icons=true&theme=github_dark&count_private=true" style="width:100%; border-radius:10px;" />
-      <br><br>
-      <img src="https://github-readme-activity-graph.vercel.app/graph?username=Aryan-0001&theme=github-compact" style="width:100%; border-radius:10px;" />
-    </div>
-  </section>
-
   <section id="projects">
-    <h2>Projects</h2>
+    <h2>Academic Projects</h2>
+    <div class="container fade-up">
+      <h3>Harnessing AI and ML Techniques for Asteroid Classification and Pattern Recognition (2024)</h3>
+      <p>Academic project focusing on leveraging artificial intelligence and machine learning models for asteroid data analysis and recognition of orbital and spectral patterns.</p>
+    </div>
+
+    <div class="container fade-up">
+      <h3>Design of Automated Resume Ranking and Role Matching System (2025)</h3>
+      <p>Ongoing minor project developing an AI/ML-based system to analyze resumes, rank candidates, and match them to suitable job roles.</p>
+    </div>
+
+    <div class="container fade-up">
+      <h3>Helium Internship Projects</h3>
+      <p>Worked at Oxpecker Technologies Pvt. Ltd. (Helium) on e-commerce analytics using AI/ML: persona-based insights, large-scale CSV generation, LinkedIn scraping, and Gemini-powered compatibility scoring. Delivered automation tools as part of the internship.</p>
+    </div>
+
+    <h2 style="margin-top:3rem;">Side Projects</h2>
     <div class="container fade-up">
       <h3>J.A.R.V.I.S. AI Assistant</h3>
       <p>A custom-built virtual assistant powered by AI (ChatGPT/Gemini) with voice interaction, Python automation, and a wake-word system. Features include local memory, TTS, and integration with desktop tasks.
-      <a href="https://github.com/Aryan-0001/Jarvis-Ai/" target="_blank" title="Jarvis Ai Github">Jarvis Ai Github</a>
-      </p>
-    
+      <a href="https://github.com/Aryan-0001/Jarvis-Ai/" target="_blank" title="Jarvis Ai Github">Jarvis Ai Github</a></p>
     </div>
-    <div class="container fade-down">
+
+    <div class="container fade-up">
       <h3>Celestify</h3>
       <p>A space-themed AR/AI astronomy app with GPS pointing, star overlays, and astrophotography utilities like stacking and star-trail generation. Built in Flutter/Dart and ported to web.</p>
-    </div>
-    <div class="container fade-up">
-      <h3>Helium Internship Projects</h3>
-      <p>Worked on e-commerce analytics using AI/ML: persona-based insights, large-scale CSV generation, LinkedIn scraping, and Gemini-powered compatibility scoring. Delivered multiple automation tools as part of my internship at Helium.</p>
     </div>
   </section>
 
@@ -326,22 +314,18 @@
     <div class="container zoom-in">
       <h3>Astrophotography & Space</h3>
       <p>I’m deeply fascinated by the cosmos. I pursue astrophotography in my free time, capturing celestial events and deep-sky objects with passion and precision.
-Check out some of my astrophotography:
-<a href="https://www.instagram.com/astro_.0101?igsh=NHl6ZTFsYjF2ZDZx" target="_blank" title="Astro Pics">Astro Pics</a>
-</p>
+      <a href="https://www.instagram.com/astro_.0101?igsh=NHl6ZTFsYjF2ZDZx" target="_blank" title="Astro Pics">Astro Pics</a></p>
     </div>
     <div class="container zoom-in">
       <h3>Chess & Strategy</h3>
       <p>I hold the ACM (Arena Candidate Master) title in FIDE's online arena. Chess sharpens my analytical thinking and strategic planning, which I carry into my technical work as well.
-<a href="https://drive.google.com/file/d/1YgqAn18WG48Rqd77NFGl3FXCMrk8Y7sU/view?usp=drivesdk" target="_blank" title="ACM TITLE">ACM TITLE</a>
-</p>
+      <a href="https://drive.google.com/file/d/1YgqAn18WG48Rqd77NFGl3FXCMrk8Y7sU/view?usp=drivesdk" target="_blank" title="ACM TITLE">ACM TITLE</a></p>
     </div>
   </section>
 
   <footer>&copy; 2025 Aryan Nair. All rights reserved.</footer>
 
   <script>
-    
     const canvas = document.getElementById('starfield');
     const ctx = canvas.getContext('2d');
     let stars = [];
@@ -398,7 +382,6 @@ Check out some of my astrophotography:
     window.addEventListener('resize', resize);
     requestAnimationFrame(loop);
 
-    // Fade-up effect
     const faders = document.querySelectorAll('.fade-up');
     const appearOnScroll = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
@@ -409,7 +392,6 @@ Check out some of my astrophotography:
     }, { threshold: 0.3 });
     faders.forEach(el => appearOnScroll.observe(el));
 
-    // Typewriter
     const lines = [
       "Final year CS student.",
       "Passionate about AI & ML.",
@@ -429,7 +411,6 @@ Check out some of my astrophotography:
     }
     window.addEventListener("load", loopType);
 
-    // 🎴 Card Tilt Effect
     document.querySelectorAll(".container").forEach(card => {
       card.addEventListener("mousemove", e => {
         const rect = card.getBoundingClientRect();
@@ -437,18 +418,14 @@ Check out some of my astrophotography:
         const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-
         const rotateX = ((y - centerY) / centerY) * 8;
         const rotateY = ((x - centerX) / centerX) * 8;
-
         card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
       });
-
       card.addEventListener("mouseleave", () => {
         card.style.transform = "rotateX(0) rotateY(0) scale(1)";
       });
     });
   </script>
-
 </body>
 </html>
